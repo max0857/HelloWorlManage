@@ -1,0 +1,27 @@
+{
+	"platforms": [{
+		"platformName": "Mi",
+		"AppID": "81b1f9af6275d1e1",
+		"appSecret": "e1237b8a16f64db2",
+		"InAppStore": 1,
+		"showProbability": 25
+	},
+	{
+		"platformName": "Dian",
+		"AppID": "0000DC1217000024",
+		"InAppStore": 1,
+		"showProbability": 25
+	},
+	{
+		"platformName": "ChuKong",
+		"AppID": "886149626-9FE874-E785-44F7-D5E338F06",
+		"InAppStore": 1,
+		"showProbability": 25
+	},
+	{
+		"platformName": "An",
+		"AppID": "93bb6f2cbc4f48d78e2c94a2f45675b2",
+		"InAppStore": 1,
+		"showProbability": 25
+	}]
+}
