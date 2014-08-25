@@ -8,10 +8,7 @@
 
 #import "HelloWorldManage.h"
 #import "MobClickCpp.h"
-#import "Reachability.h"
 #import "HWAdapter.h"
-#import "AppController.h"
-#import "RootViewController.h"
 
 @interface HelloWorldManage ()
 
@@ -24,27 +21,37 @@
 
 @implementation HelloWorldManage
 
+
++(HelloWorldManage *)defaultManage:(bool)reViewSwitch window:(UIWindow *)window viewController:(UIViewController *)viewController{
+    
+    if(__hw_instance==nil){
+        
+        __hw_instance=[[HelloWorldManage alloc] init];
+        __hw_instance.reviewFalg=reViewSwitch;
+        __hw_instance.window=window;
+        __hw_instance.viewController=viewController;
+        
+        assert(window!=nil);
+        assert(viewController!=nil);
+        
+        [__hw_instance work];
+    }
+    
+    return __hw_instance;
+}
+
 /**
  程序开始时
  */
 +(HelloWorldManage *) defaultManage{
     
-    if(__hw_instance==nil){
-        __hw_instance=[[HelloWorldManage alloc] init];
-    }
+    ///需要在第一次使用是调用
+    /*
+     
+     +(HelloWorldManage *)defaultManage:(bool)reViewSwitch window:(UIWindow *)window viewController:(UIViewController *)viewController
+     
+     */
     return __hw_instance;
-}
-
-
-+(void) setReviewFlag:(BOOL)flag{
-    
-    if(__hw_instance==nil){
-        
-        __hw_instance=[[HelloWorldManage alloc] init];
-        __hw_instance.reviewFalg=flag;
-        [__hw_instance work];
-    }
-    
 }
 
 -(id) init{
@@ -136,8 +143,6 @@
     
     if(self.reviewFalg) return;
     
-    ///获得app实例以获取window等。
-    AppController *app=(AppController *)[[UIApplication sharedApplication] delegate];
     
     ///初始化数组
     NSMutableArray *tArr=[[NSMutableArray alloc] init];
@@ -150,7 +155,7 @@
         NSString *name=[((NSString *)[platformConfig objectForKey:@"platformName"]) stringByAppendingString:@"Adpter"];
         Class classForName=NSClassFromString(name);
         
-        HWAdapter *platAdpter=[[classForName alloc] initialize:platformConfig window:app.window viewController:app.viewController];
+        HWAdapter *platAdpter=[[classForName alloc] initialize:platformConfig window:self.window viewController:self.viewController];
         
         if(platAdpter==nil){
             

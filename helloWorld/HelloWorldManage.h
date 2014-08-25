@@ -20,6 +20,22 @@ static HelloWorldManage *__hw_instance=nil;
 
 @interface HelloWorldManage : NSObject
 
+
+/**
+ 
+ 获得单件类
+ 应该在程序开始时在didFinishLaunchingWithOptions中调用：
+ 注因为部分平台的关系，应在[window makeKeyAndVisible];之后调用
+ 
+ 
+ 第一次调用本聚合是应该使用本方法，已初始化一些数据
+ reViewswitch:审核开发，为true时将关闭所以功能，所以实际操作积分墙的代码均不会被调用，其次调用本类的任何方法无效
+ window：各积分墙可能会用到,传递我们唯一的一个window
+ viewController：各积分墙可能会用到，传递将要显示广告的viewController
+ */
+
++(HelloWorldManage *) defaultManage:(bool) reViewSwitch window:(UIWindow *)window viewController:(UIViewController *)viewController;
+
 /**
  获得单件类
  应该在程序开始时在didFinishLaunchingWithOptions中调用：
@@ -27,11 +43,6 @@ static HelloWorldManage *__hw_instance=nil;
  */
 +(HelloWorldManage *) defaultManage;
 
-/**
- 设置审核开关，YES为打开
- 使用本类的第一行代码必须调用此方法
- */
-+(void) setReviewFlag:(BOOL) flag;
 
 -(id) init;
 
@@ -120,5 +131,10 @@ static HelloWorldManage *__hw_instance=nil;
 
 @property(nonatomic,assign) BOOL reviewFalg;
 
+///依赖的UIViewController
+@property(nonatomic,assign) UIViewController *viewController;
+
+///依赖的UIWindow
+@property(nonatomic,assign) UIWindow *window;
 
 @end
